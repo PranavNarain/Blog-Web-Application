@@ -1,0 +1,47 @@
+<%- include("partials/header.ejs")%>
+
+<body class="wrapper">
+  <div class="contenido">
+    <div class="btn_container">
+      <form action="/writeBlog" method="get">
+        <input type="submit" class="btn_create" value="Create" />
+      </form>
+    </div>
+
+    <div class="blog_container">
+      <% let index = 0; %> <% blogs.forEach(blog => { %>
+      <div class="blog">
+        <h3><%= blog.title %></h3>
+        <p>Author: <%= blog.author %></p>
+        <p><%= blog.content.slice(0,40) %>...</p>
+        <p>Date: <%= blog.date %></p>
+
+        <div class="btns">
+          <!--Form to view the blog-->
+          <form action="/view-blog" method="get">
+            <input type="hidden" name="blogIndex" value="<%= index %>" />
+            <input type="submit" value="View" />
+          </form>
+
+          <!-- Form to edit the blog -->
+          <form action="/editPage" method="post">
+            <input type="hidden" name="blogIndex" value="<%= index %>" />
+            <input type="submit" value="Edit" />
+          </form>
+
+          <!-- Form to delete the blog -->
+          <form action="/delete-blog" method="post">
+            <input type="hidden" name="blogIndex" value="<%= index %>" />
+            <input type="submit" value="Delete" />
+          </form>
+        </div>
+
+        <%index++%>
+      </div>
+
+      <% }) %>
+    </div>
+  </div>
+</body>
+
+<%- include("partials/footer.ejs")%>
